@@ -36,7 +36,10 @@ jobs:
       - name: Use OCaml
         uses: ocaml/setup-ocaml@v2
         with:
-          dune-cache: true
+          #dune-cache: true
+          ocaml-version: 4.12
+          dune-version: 2.10
+          opam-repository: default
 
       - name: Install Common Libs
         run: opam install opam install async base core_kernel ounit qcheck dune ocamlformat
@@ -56,7 +59,10 @@ jobs:
       - name: Use OCaml
         uses: ocaml/setup-ocaml@v2
         with:
-          dune-cache: true
+          #dune-cache: true
+          ocaml-version: 4.12
+          dune-version: 2.10
+          opam-repository: default
 
       - name: Lint doc
         uses: ocaml/setup-ocaml/lint-doc@v2
@@ -70,7 +76,10 @@ jobs:
       - name: Use OCaml
         uses: ocaml/setup-ocaml@v2
         with:
-          dune-cache: true
+          #dune-cache: true
+          ocaml-version: 4.12
+          dune-version: 2.10
+          opam-repository: default
 
       - name: Lint fmt
         uses: ocaml/setup-ocaml/lint-fmt@v2
