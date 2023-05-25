@@ -27,7 +27,7 @@ jobs:
         USER_GID: 1000
     container:
         image: ocaml/opam:ubuntu-22.04
-        options: --user vim
+        options: --user root
     steps:
       - uses: actions/checkout@v3
       - name: Fix Namespaces
@@ -35,4 +35,4 @@ jobs:
         run: groupmod --gid $USER_GID $USERNAME && usermod -uid $USER_UID -gid $USER_GID $USERNAME && chown -R $USER_UID:$USER_GID /home/$USERNAME
 
       - name: OCaml setup
-        run: opam init && opam update && opam install base core_kernel ounit qcheck dune ocamlformat
+        run: su - $USERNAME && opam init && opam update && opam install base core_kernel ounit qcheck dune ocamlformat
