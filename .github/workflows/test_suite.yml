@@ -28,4 +28,4 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: OCaml setup
-        run: opam update && opam install base core_kernel ounit qcheck dune ocamlformat
+        run: opam init && opam update && opam install base core_kernel ounit qcheck dune ocamlformat
