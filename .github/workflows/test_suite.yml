@@ -39,13 +39,13 @@ jobs:
           dune-cache: true
 
       - name: Install Common Libs
-      - run: opam install opam install async base core_kernel ounit qcheck dune ocamlformat
+        run: opam install opam install async base core_kernel ounit qcheck dune ocamlformat
       - name: Install Repo
-      - run: opam install . --deps-only --with-doc --with-test
+        run: opam install . --deps-only --with-doc --with-test
       - name: Dune Build
-      - run: opam exec -- dune build
+        run: opam exec -- dune build
       - name: Dune Test
-      - run: opam exec -- dune runtest
+        run: opam exec -- dune runtest
 
   lint-doc:
     runs-on: ubuntu-22.04
