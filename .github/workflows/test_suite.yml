@@ -29,13 +29,52 @@ jobs:
         image: ocaml/opam:ubuntu-22.04
         options: --user root
     steps:
+      - name: Checkout code
       - uses: actions/checkout@v3
-      - name: Install m4
-        run: apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends m4 && apt-get update && apt-get -y upgrade
 
-      - name: Fix Namespaces
-        #run: chmod u+s /usr/bin/bwrap
-        run: if ["$USER_GID" != "1000"] || ["USER_UID" != "1000"]; then groupmod --gid $USER_GID $USERNAME && usermod -uid $USER_UID -gid $USER_GID $USERNAME && chown -R $USER_UID:$USER_GID /home/$USERNAME; fi
+      - name: Use OCaml
+        uses: ocaml/setup-ocaml@v2
+        with:
+          dune-cache: true
 
-      - name: OCaml setup
-        run: opam init --disable-sandboxing && eval $(opam env) && opam update && opam install async base core_kernel ounit qcheck dune ocamlformat
+      - run: opam install opam install async base core_kernel ounit qcheck dune ocamlformat
+      - run: opam install . --deps-only --with-doc --with-test
+      - run: opam exec -- dune build
+      - run: opam exec -- dune runtest
+#      - name: Install m4
+#        run: apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install --no-install-recommends m4 && apt-get update && apt-get -y upgrade
+#
+#      - name: Fix Namespaces
+#        #run: chmod u+s /usr/bin/bwrap
+#        run: if ["$USER_GID" != "1000"] || ["USER_UID" != "1000"]; then groupmod --gid $USER_GID $USERNAME && usermod -uid $USER_UID -gid $USER_GID $USERNAME && chown -R $USER_UID:$USER_GID /home/$USERNAME; fi
+#
+#      - name: OCaml setup
+#        run: opam init --disable-sandboxing && eval $(opam env) && opam update && opam install async base core_kernel ounit qcheck dune ocamlformat
+#
+  lint-doc:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Use OCaml
+        uses: ocaml/setup-ocaml@v2
+        with:
+          dune-cache: true
+
+      - name: Lint doc
+        uses: ocaml/setup-ocaml/lint-doc@v2
+
+  lint-fmt:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Use OCaml
+        uses: ocaml/setup-ocaml@v2
+        with:
+          dune-cache: true
+
+      - name: Lint fmt
+        uses: ocaml/setup-ocaml/lint-fmt@v2
