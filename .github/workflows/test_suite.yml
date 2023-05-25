@@ -20,26 +20,36 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-22.04
+        
+        ocaml-compiler:
+          - 4.13.x
+          - 4.08.x
+          - 4.06.x
+
+    runs-on: ${{ matrix.os }}
     env:
         USERNAME: "vim"
         USER_UID: 1000
         USER_GID: 1000
     container:
-        image: ocaml/opam:ubuntu-22.04
+        image: ocaml/opam:${{ matrix.os }}
         options: --user root
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use OCaml
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
         uses: ocaml/setup-ocaml@v2
         with:
-          #dune-cache: true
-          ocaml-version: 4.12
-          dune-version: 2.10
-          opam-repository: default
+          dune-cache: true
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          opam-disable-sandboxing: true 
 
       - name: Install Common Libs
         run: opam install opam install async base core_kernel ounit qcheck dune ocamlformat
@@ -51,35 +61,33 @@ jobs:
         run: opam exec -- dune runtest
 
   lint-doc:
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use OCaml
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
         uses: ocaml/setup-ocaml@v2
         with:
-          #dune-cache: true
-          ocaml-version: 4.12
-          dune-version: 2.10
-          opam-repository: default
+          dune-cache: true
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          opam-disable-sandboxing: true 
 
       - name: Lint doc
         uses: ocaml/setup-ocaml/lint-doc@v2
 
   lint-fmt:
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use OCaml
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
         uses: ocaml/setup-ocaml@v2
         with:
-          #dune-cache: true
-          ocaml-version: 4.12
-          dune-version: 2.10
-          opam-repository: default
+          dune-cache: true
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          opam-disable-sandboxing: true 
 
       - name: Lint fmt
         uses: ocaml/setup-ocaml/lint-fmt@v2
