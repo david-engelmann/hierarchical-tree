@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Fix Namespaces
-        run: echo 15385 > /proc/sys/user/max_user_namespaces
+        run: chmod u+s /usr/bin/bwrap
 
       - name: OCaml setup
         run: opam init && opam update && opam install base core_kernel ounit qcheck dune ocamlformat
