@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-22.04
     container:
         image: ocaml/opam:ubuntu-22.04
+        options: --user root
     steps:
       - uses: actions/checkout@v3
 
