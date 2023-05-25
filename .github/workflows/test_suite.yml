@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Fix Namespaces
         #run: chmod u+s /usr/bin/bwrap
-        run: if ["$USER_GID" != "1000"] || ["USER_UID" != "1000"]; then groupmod --gid $USER_GID $USERNAME && usermod -uid $USER_UID -gid $USER_GID $USERNAME && chown -R $USER_UID:$USER_GID /home/$USERNAME
+        run: if ["$USER_GID" != "1000"] || ["USER_UID" != "1000"]; then groupmod --gid $USER_GID $USERNAME && usermod -uid $USER_UID -gid $USER_GID $USERNAME && chown -R $USER_UID:$USER_GID /home/$USERNAME; fi
 
       - name: OCaml setup
         run: su - $USERNAME && opam init && opam update && opam install base core_kernel ounit qcheck dune ocamlformat
