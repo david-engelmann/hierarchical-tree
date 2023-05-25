@@ -23,11 +23,16 @@ jobs:
     runs-on: ubuntu-22.04
     container:
         image: ocaml/opam:ubuntu-22.04
-        options: --user root
+        options: --user vim
     steps:
       - uses: actions/checkout@v3
+        with:
+            USERNAME: "vim"
+            USER_UID: 1000
+            USER_GID: 1000
       - name: Fix Namespaces
-        run: chmod u+s /usr/bin/bwrap
+        #run: chmod u+s /usr/bin/bwrap
+        run: groupmod --gid $USER_GID $USERNAME && usermod -uid $USER_UID -gid $USER_GID $USERNAME && chown -R $USER_UID:$USER_GID /home/$USERNAME
 
       - name: OCaml setup
         run: opam init && opam update && opam install base core_kernel ounit qcheck dune ocamlformat
