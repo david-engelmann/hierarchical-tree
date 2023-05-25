@@ -1,0 +1,4 @@
+(library (name hierarchical-tree) (public_name david-engelmann.hierarchical-tree)
+ (libraries async core)
+ (preprocess (pps ppx_jane)))
+
