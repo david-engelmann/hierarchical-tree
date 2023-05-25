@@ -38,4 +38,4 @@ jobs:
         run: if ["$USER_GID" != "1000"] || ["USER_UID" != "1000"]; then groupmod --gid $USER_GID $USERNAME && usermod -uid $USER_UID -gid $USER_GID $USERNAME && chown -R $USER_UID:$USER_GID /home/$USERNAME; fi
 
       - name: OCaml setup
-        run: opam init && opam update && opam install base core_kernel ounit qcheck dune ocamlformat
+        run: eval $(opam env) && opam init && opam update && opam install base core_kernel ounit qcheck dune ocamlformat
