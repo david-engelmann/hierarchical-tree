@@ -27,7 +27,7 @@ jobs:
           - ubuntu-22.04
 
         ocaml-compiler:
-          - 4.14.x
+          - 4.14.1
 
     runs-on: ${{ matrix.os }}
     env:
@@ -59,7 +59,16 @@ jobs:
         run: opam exec -- dune runtest
 
   lint-doc:
-    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-22.04
+
+        ocaml-compiler:
+          - 4.14.1
+
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -75,7 +84,16 @@ jobs:
         uses: ocaml/setup-ocaml/lint-doc@v2
 
   lint-fmt:
-    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-22.04
+
+        ocaml-compiler:
+          - 4.14.1
+
+    runs-on: ${{ matrix.os }} 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
