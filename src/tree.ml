@@ -20,6 +20,23 @@ let rec print_int_tree (t : int tree) : unit =
       print_endline (indentation ^ "Value: " ^ string_of_int value);
       List.iter print_int_tree children
 
+let get_layer_of_tree (t : int tree) : int =
+  match t with
+  | Leaf -> 0
+  | Node { parent; _ } ->
+      let l = ref 0 in
+      let current_node = ref (Some parent) in
+      while !current_node <> None do
+        l := !l + 1;
+        match !current_node with
+        | Some p -> (
+            match p with
+            | Some (Node { parent = p_node; _ }) -> current_node := Some p_node
+            | _ -> current_node := None)
+        | None -> ()
+      done;
+      !l
+
 let tree4 : int tree =
   Node { value = 4; parent = None; children = []; layer = 0 }
 
