@@ -20,7 +20,7 @@ let rec print_int_tree (t : int tree) : unit =
       print_endline (indentation ^ "Value: " ^ string_of_int value);
       List.iter print_int_tree children
 
-let get_layer_of_tree (t : int tree) : int =
+let get_layer_of_tree (t : 'a tree) : int =
   match t with
   | Leaf -> 0
   | Node { parent; _ } ->
@@ -36,6 +36,11 @@ let get_layer_of_tree (t : int tree) : int =
         | None -> ()
       done;
       !l
+
+let get_lowest_layer_of_tree (t: 'a tree) : int =
+    match t with
+    | Leaf -> 0
+    | Node _ -> 1
 
 let tree4 : int tree =
   Node { value = 4; parent = None; children = []; layer = 0 }
