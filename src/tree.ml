@@ -37,22 +37,22 @@ let get_layer_of_tree (t : 'a tree) : int =
       done;
       !l
 
-let get_lowest_layer_of_tree (t: 'a tree) : int =
-    match t with
-    | Leaf -> 0
-    | Node { children; _ } ->
-        let l = ref 0 in
-        let current_children = ref children in
-        while !current_children <> [] do
-            l := !l + 1;
-            match !current_children with
-             | [] -> ()
-             | hd :: _ ->
-                match hd with
-                 | Node { children = c_nodes; _ } -> current_children := c_nodes
-                 | _ -> ()
-        done;
-        !l
+let get_lowest_layer_of_tree (t : 'a tree) : int =
+  match t with
+  | Leaf -> 0
+  | Node { children; _ } ->
+      let l = ref 0 in
+      let current_children = ref children in
+      while !current_children <> [] do
+        l := !l + 1;
+        match !current_children with
+        | [] -> ()
+        | hd :: _ -> (
+            match hd with
+            | Node { children = c_nodes; _ } -> current_children := c_nodes
+            | _ -> ())
+      done;
+      !l
 
 
 let tree4 : int tree =
