@@ -45,9 +45,12 @@ let get_lowest_layer_of_tree (t : 'a tree) : int =
       let current_children = ref children in
       while !current_children <> [] do
         l := !l + 1;
+        (* current_lowest_layer *)
+        let current_lowest_layer = ref 0 in
         match !current_children with
         | [] -> ()
-        | hd :: _ -> (
+        | hd :: rest -> (
+            (* adjust to use rest *)
             match hd with
             | Node { children = c_nodes; _ } -> current_children := c_nodes
             | _ -> ())
