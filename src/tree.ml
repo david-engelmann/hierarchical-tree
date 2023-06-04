@@ -114,3 +114,113 @@ let grand_parent_tree : int tree =
         ];
       layer = 0;
     }
+
+let two_children_tree : int tree =
+  (* grandpa *)
+  Node
+    {
+      value = 0;
+      parent = None;
+      children =
+        [
+          (* father *)
+          Node
+            {
+              value = 1;
+              parent =
+                Some
+                  (Node { value = 0; parent = None; children = []; layer = 0 });
+              children =
+                [
+                  (* kid 1 *)
+                  Node
+                    {
+                      value = 2;
+                      parent =
+                        Some
+                          (Node
+                             {
+                               value = 1;
+                               parent = None;
+                               children = [];
+                               layer = 1;
+                             });
+                      children =
+                        [
+                          (* grandkid 1 no kids *)
+                          Node
+                            {
+                              value = 3;
+                              parent =
+                                Some
+                                  (Node
+                                     {
+                                       value = 2;
+                                       parent = None;
+                                       children = [];
+                                       layer = 2;
+                                     });
+                              children = [];
+                              layer = 0;
+                            };
+                        ];
+                      layer = 0;
+                    };
+                  (* kid 2 *)
+                  Node
+                    {
+                      value = 4;
+                      parent =
+                        Some
+                          (Node
+                             {
+                               value = 1;
+                               parent = None;
+                               children = [];
+                               layer = 1;
+                             });
+                      children =
+                        [
+                          (* grandkid 2 1 kid *)
+                          Node
+                            {
+                              value = 3;
+                              parent =
+                                Some
+                                  (Node
+                                     {
+                                       value = 2;
+                                       parent = None;
+                                       children = [];
+                                       layer = 0;
+                                     });
+                              children =
+                                [
+                                  (* great grand kid *)
+                                  Node
+                                    {
+                                      value = 5;
+                                      parent =
+                                        Some
+                                          (Node
+                                             {
+                                               value = 3;
+                                               parent = None;
+                                               children = [];
+                                               layer = 2;
+                                             });
+                                      children = [];
+                                      layer = 2;
+                                    };
+                                ];
+                              layer = 0;
+                            };
+                        ];
+                      layer = 0;
+                    };
+                ];
+              layer = 0;
+            };
+        ];
+      layer = 0;
+    }
