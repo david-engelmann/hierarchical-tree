@@ -37,26 +37,15 @@ let get_layer_of_tree (t : 'a tree) : int =
       done;
       !l
 
-let get_lowest_layer_of_tree (t : 'a tree) : int =
+
+
+let rec get_lowest_layer_of_tree (t : 'a tree) : int =
   match t with
   | Leaf -> 0
   | Node { children; _ } ->
-      let l = ref 0 in
-      let current_children = ref children in
-      while !current_children <> [] do
-        l := !l + 1;
-        (* current_lowest_layer *)
-        let current_lowest_layer = ref 0 in
-        match !current_children with
-        | [] -> ()
-        | hd :: rest -> (
-            (* adjust to use rest *)
-            match hd with
-            | Node { children = c_nodes; _ } -> current_children := c_nodes
-            | _ -> ())
-      done;
-      !l
-
+      match children with
+      | [] -> 1
+      | hd :: res -> 1 + List.fold_left max (get_lowest_layer_of_tree hd) (List.map get_lowest_layer_of_tree res)
 
 let tree4 : int tree =
   Node { value = 4; parent = None; children = []; layer = 0 }
