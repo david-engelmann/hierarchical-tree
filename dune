@@ -1,4 +1,4 @@
-(library 
+(library
  (name hierarchical_tree)
  (public_name hierarchical-tree.hierarchical_tree)
  (libraries async core)
@@ -7,6 +7,6 @@
   src/tree
   ))
 
-(tests 
+(tests
  (names test_tree)
  (libraries async core oUnit2 hierarchical_tree))
