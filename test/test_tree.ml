@@ -2,6 +2,7 @@
 open Core
 open Async
 open OUnit2
+open Tree
 *)
 
 let add x y = x + y
