@@ -4,7 +4,7 @@
  (libraries async core)
  (preprocess (pps ppx_jane))
  (modules
-  tree
+  src/tree.ml
   ))
 
 (tests
