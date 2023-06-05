@@ -1,4 +1,6 @@
-(library (name hierarchical_tree) (public_name hierarchical-tree.hierarchical_tree)
+(library
+ (name hierarchical_tree)
  (libraries async core)
- (preprocess (pps ppx_jane)))
-
+ (preprocess (pps ppx_jane))
+ (modules Tree)
+)
