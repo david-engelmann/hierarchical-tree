@@ -20,7 +20,7 @@ let rec print_int_tree (t : int tree) : unit =
       print_endline (indentation ^ "Value: " ^ string_of_int value);
       List.iter print_int_tree children
 
-let get_layer_of_tree (t : int tree) : int =
+let get_layer_of_tree (t : 'a tree) : int =
   match t with
   | Leaf -> 0
   | Node { parent; _ } ->
@@ -36,6 +36,16 @@ let get_layer_of_tree (t : int tree) : int =
         | None -> ()
       done;
       !l
+
+
+
+let rec get_lowest_layer_of_tree (t : 'a tree) : int =
+  match t with
+  | Leaf -> 0
+  | Node { children; _ } ->
+      match children with
+      | [] -> 1
+      | hd :: res -> 1 + List.fold_left max (get_lowest_layer_of_tree hd) (List.map get_lowest_layer_of_tree res)
 
 let tree4 : int tree =
   Node { value = 4; parent = None; children = []; layer = 0 }
@@ -92,6 +102,116 @@ let grand_parent_tree : int tree =
                     };
                 ];
               layer = 1;
+            };
+        ];
+      layer = 0;
+    }
+
+let two_children_tree : int tree =
+  (* grandpa *)
+  Node
+    {
+      value = 0;
+      parent = None;
+      children =
+        [
+          (* father *)
+          Node
+            {
+              value = 1;
+              parent =
+                Some
+                  (Node { value = 0; parent = None; children = []; layer = 0 });
+              children =
+                [
+                  (* kid 1 *)
+                  Node
+                    {
+                      value = 2;
+                      parent =
+                        Some
+                          (Node
+                             {
+                               value = 1;
+                               parent = None;
+                               children = [];
+                               layer = 1;
+                             });
+                      children =
+                        [
+                          (* grandkid 1 no kids *)
+                          Node
+                            {
+                              value = 3;
+                              parent =
+                                Some
+                                  (Node
+                                     {
+                                       value = 2;
+                                       parent = None;
+                                       children = [];
+                                       layer = 2;
+                                     });
+                              children = [];
+                              layer = 0;
+                            };
+                        ];
+                      layer = 0;
+                    };
+                  (* kid 2 *)
+                  Node
+                    {
+                      value = 4;
+                      parent =
+                        Some
+                          (Node
+                             {
+                               value = 1;
+                               parent = None;
+                               children = [];
+                               layer = 1;
+                             });
+                      children =
+                        [
+                          (* grandkid 2 1 kid *)
+                          Node
+                            {
+                              value = 3;
+                              parent =
+                                Some
+                                  (Node
+                                     {
+                                       value = 2;
+                                       parent = None;
+                                       children = [];
+                                       layer = 0;
+                                     });
+                              children =
+                                [
+                                  (* great grand kid *)
+                                  Node
+                                    {
+                                      value = 5;
+                                      parent =
+                                        Some
+                                          (Node
+                                             {
+                                               value = 3;
+                                               parent = None;
+                                               children = [];
+                                               layer = 2;
+                                             });
+                                      children = [];
+                                      layer = 2;
+                                    };
+                                ];
+                              layer = 0;
+                            };
+                        ];
+                      layer = 0;
+                    };
+                ];
+              layer = 0;
             };
         ];
       layer = 0;
