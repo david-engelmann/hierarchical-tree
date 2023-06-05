@@ -3,8 +3,8 @@
  (public_name hierarchical-tree.hierarchical_tree)
  (libraries async core)
  (preprocess (pps ppx_jane))
- (files
-  src/tree.ml
+ (modules
+  tree
   ))
 
 (tests
