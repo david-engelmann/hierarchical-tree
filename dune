@@ -3,10 +3,11 @@
  (public_name hierarchical-tree.hierarchical_tree)
  (libraries async core)
  (preprocess (pps ppx_jane))
- (modules
-  src/tree
-  ))
+ (modules src/Tree)
+)
 
 (tests
  (names test_tree)
- (libraries async core oUnit2 hierarchical_tree))
+ (libraries async core oUnit2 hierarchical_tree)
+ (modules test/test_tree)
+)
