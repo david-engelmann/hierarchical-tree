@@ -13,9 +13,9 @@ let test_get_lowest_layer_of_tree_on_grand_parent_tree _ =
 let suite =
     "suite" >:::
         [
-            "test_get_lowest_layer_of_tree_on_tree4" >:: test_get_lowest_layer_of_tree_on_tree4;
-            "test_get_lowest_layer_of_tree_on_parent_tree" >:: test_get_lowest_layer_of_tree_on_parent_tree;
-"test_get_lowest_layer_of_tree_on_grand_parent_tree" >:: test_get_lowest_layer_of_tree_on_grand_parent_tree;
+          "test_get_lowest_layer_of_tree_on_tree4" >:: test_get_lowest_layer_of_tree_on_tree4;
+          "test_get_lowest_layer_of_tree_on_parent_tree" >:: test_get_lowest_layer_of_tree_on_parent_tree;
+          "test_get_lowest_layer_of_tree_on_grand_parent_tree" >:: test_get_lowest_layer_of_tree_on_grand_parent_tree;
         ]
 
 let () =
