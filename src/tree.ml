@@ -13,26 +13,6 @@ module Tree = struct
           layer : int;
         }
 
-    let rec print_int_tree (t : int tree) : unit =
-      match t with
-      | Leaf -> ()
-      | Node { value; parent; children; _ } ->
-          let spaces = String.make ((get_layer_of_tree t) * 2) ' ' in
-          match parent with
-           | Some _ -> print_endline (spaces ^ "|__" ^ string_of_int value)
-           | None -> print_endline (spaces ^ string_of_int value)
-          List.iter print_int_tree children
-
-    let rec print_tree ( t : 'a tree) : unit =
-      match t with
-       | Leaf -> ()
-       | Node { value; parent; children; _ } ->
-           let spaces = String.make ((get_layer_of_tree t) * 2) ' ' in
-           match parent with
-            | Some p -> print_endline (spaces ^ "|__" ^ value)
-            | None -> print_endline (spaces ^ value)
-           List.iter print_tree children
-
     let get_layer_of_tree (t : 'a tree) : int =
       match t with
       | Leaf -> 0
@@ -57,6 +37,26 @@ module Tree = struct
           match children with
           | [] -> 1
           | hd :: res -> 1 + List.fold_left max (get_lowest_layer_of_tree hd) (List.map get_lowest_layer_of_tree res)
+
+    let rec print_int_tree (t : int tree) : unit =
+      match t with
+      | Leaf -> ()
+      | Node { value; parent; children; _ } ->
+          let spaces = String.make ((get_layer_of_tree t) * 2) ' ' in
+          match parent with
+           | Some _ -> print_endline (spaces ^ "|__" ^ string_of_int value)
+           | None -> print_endline (spaces ^ string_of_int value)
+          List.iter print_int_tree children
+
+    let rec print_tree ( t : 'a tree) : unit =
+      match t with
+       | Leaf -> ()
+       | Node { value; parent; children; _ } ->
+           let spaces = String.make ((get_layer_of_tree t) * 2) ' ' in
+           match parent with
+            | Some p -> print_endline (spaces ^ "|__" ^ value)
+            | None -> print_endline (spaces ^ value)
+           List.iter print_tree children
 
     let tree4 : int tree =
       Node { value = 4; parent = None; children = []; layer = 0 }
