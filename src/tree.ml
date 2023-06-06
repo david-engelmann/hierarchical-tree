@@ -38,8 +38,6 @@ module Tree = struct
           done;
           !l
 
-
-
     let rec get_lowest_layer_of_tree (t : 'a tree) : int =
       match t with
       | Leaf -> 0
@@ -50,6 +48,27 @@ module Tree = struct
 
     let tree4 : int tree =
       Node { value = 4; parent = None; children = []; layer = 0 }
+
+    let one_parent_tree : int tree =
+      Node
+        {
+          value = 1;
+          parent = Some (Node { value = 0; parent = None; children = []; layer = 0 });
+          children = [];
+          layers = 1;
+        }
+
+    let two_parent_tree : int tree =
+      Node
+        {
+          value = 2;
+          parent = Some (Node { value = 1;
+                                parent = Some (Node { value = 2; parent = None; children = []; layer = 0});
+                                children = [];
+                                layer = 1 });
+          children = [];
+          layers = 2;
+        }
 
     let parent_tree : int tree =
       Node
@@ -185,7 +204,7 @@ module Tree = struct
                                            value = 2;
                                            parent = None;
                                            children = [];
-                                           layer = 0;
+                                           layer = 3;
                                          });
                                   children =
                                     [
@@ -200,19 +219,19 @@ module Tree = struct
                                                    value = 3;
                                                    parent = None;
                                                    children = [];
-                                                   layer = 2;
+                                                   layer = 4;
                                                  });
                                           children = [];
-                                          layer = 2;
+                                          layer = 5;
                                         };
                                     ];
-                                  layer = 0;
+                                  layer = 4;
                                 };
                             ];
-                          layer = 0;
+                          layer = 2;
                         };
                     ];
-                  layer = 0;
+                  layer = 1;
                 };
             ];
           layer = 0;

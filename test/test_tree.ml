@@ -13,6 +13,12 @@ let test_get_lowest_layer_of_tree_on_grand_parent_tree _ =
 let test_get_lowest_layer_of_tree_on_two_children_tree _ =
   OUnit2.assert_equal 5 (Tree.get_lowest_layer_of_tree Tree.two_children_tree)
 
+let test_get_layer_of_tree_on_one_parent_tree _ =
+  OUnit2.assert_equal 1 (Tree.get_layer_of_tree one_parent_tree)
+
+let test_get_layer_of_tree_on_two_parent_tree _ =
+  OUnit2.assert_equal 2 (Tree.get_layer_of_tree two_parent_tree)
+
 let suite =
     "suite" >:::
         [
@@ -20,6 +26,8 @@ let suite =
           "test_get_lowest_layer_of_tree_on_parent_tree" >:: test_get_lowest_layer_of_tree_on_parent_tree;
           "test_get_lowest_layer_of_tree_on_grand_parent_tree" >:: test_get_lowest_layer_of_tree_on_grand_parent_tree;
           "test_get_lowest_layer_of_tree_on_two_children_tree" >:: test_get_lowest_layer_of_tree_on_two_children_tree;
+          "test_get_layer_of_tree_on_one_parent_tree" >:: test_get_layer_of_tree_on_one_parent_tree;
+          "test_get_layer_of_tree_on_two_parent_tree" >:: test_get_layer_of_tree_on_two_parent_tree;
         ]
 
 let () =
