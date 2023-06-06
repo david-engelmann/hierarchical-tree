@@ -29,43 +29,49 @@ module Tree = struct
                 (get_lowest_layer_of_tree hd)
                 (List.map get_lowest_layer_of_tree res))
 
-  let rec print_int_tree (t : int tree) : unit =
-    match t with
-    | Leaf -> ()
-    | Node { value; parents; children } -> (
-        let spaces = String.make (get_layer_of_tree t * 2) ' ' in
-        (match parents with
-         | None ->
-            print_endline (spaces ^ string_of_int value);
-            List.iter print_int_tree children
-         | Some p ->
-            (match p with
-             | [] ->
-                print_endline (spaces ^ string_of_int value);
-                List.iter print_int_tree children
-             | _ :: _ ->
-                print_endline (spaces ^ "|__" ^ string_of_int value);
-                List.iter print_int_tree children))
-        )
+  let print_int_tree (t : int tree) : unit =
+    let rec print_int_node (node : int tree) (indentation : int) : unit =
+      let spaces = String.make (indentation * 2) ' ' in
+      match node with
+      | Leaf -> ()
+      | Node { value; parents; children } ->
+          (match parents with
+           | None ->
+              print_endline (spaces ^ string_of_int value);
+              List.iter (fun child -> print_int_node child (indentation + 1)) children
+           | Some p ->
+              (match p with
+               | [] ->
+                  print_endline (spaces ^ string_of_int value);
+                  List.iter (fun child -> print_int_node child (indentation + 1)) children
+               | _ :: _ ->
+                  print_endline (spaces ^ "|__" ^ string_of_int value);
+                  List.iter (fun child ->  print_int_node child (indentation + 1)) children))
+    in
+    let indentation = get_layer_of_tree t in
+    print_int_node t indentation
 
-  let rec print_tree (t : 'a tree) : unit =
-    match t with
-    | Leaf -> ()
-    | Node { value; parents; children } -> (
-        let spaces = String.make (get_layer_of_tree t * 2) ' ' in
-        (match parents with
-        | None ->
-            print_endline (spaces ^ value);
-            List.iter print_tree children
-        | Some p ->
-            (match p with
-             | [] ->
+  let print_tree (t : 'a tree) : unit =
+    let rec print_node (node : 'a tree) (indentation : int) : unit =
+        let spaces = String.make (indentation * 2) ' ' in
+        match node with
+        | Leaf -> ()
+        | Node { value; parents; children } ->
+            (match parents with
+            | None ->
                 print_endline (spaces ^ value);
-                List.iter print_tree children
-             | _ :: _ ->
-                print_endline (spaces ^ "|__" ^ value);
-                List.iter print_tree children))
-    )
+                List.iter (fun child -> print_node child (indentation + 1)) children
+            | Some p ->
+                (match p with
+                 | [] ->
+                    print_endline (spaces ^ value);
+                    List.iter (fun child -> print_node child (indentation + 1)) children
+                 | _ :: _ ->
+                    print_endline (spaces ^ "|__" ^ value);
+                    List.iter (fun child -> print_node child (indentation + 1)) children))
+    in
+    let indentation = get_layer_of_tree t in
+    print_node t indentation
 
   let tree4 : int tree = Node { value = 4; parents = None; children = [] }
 
@@ -194,7 +200,7 @@ module Tree = struct
                             (* grandkid 1 no kids *)
                             Node
                               {
-                                value = 3;
+                                value = 4;
                                 parents =
                                   Some
                                     ([Node
@@ -210,7 +216,7 @@ module Tree = struct
                     (* kid 2 *)
                     Node
                       {
-                        value = 4;
+                        value = 3;
                         parents =
                           Some
                             ([Node { value = 1; parents = None; children = [] }]);
@@ -219,12 +225,12 @@ module Tree = struct
                             (* grandkid 2 1 kid *)
                             Node
                               {
-                                value = 3;
+                                value = 5;
                                 parents =
                                   Some
                                     ([Node
                                        {
-                                         value = 2;
+                                         value = 3;
                                          parents = None;
                                          children = [];
                                        }]);
@@ -233,12 +239,12 @@ module Tree = struct
                                     (* great grand kid *)
                                     Node
                                       {
-                                        value = 5;
+                                        value = 6;
                                         parents =
                                           Some
                                             ([Node
                                                {
-                                                 value = 3;
+                                                 value = 5;
                                                  parents = None;
                                                  children = [];
                                                }]);
