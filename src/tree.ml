@@ -103,6 +103,21 @@ module Tree = struct
         children = [];
       }
 
+  let multiple_parent_tree : int tree =
+    Node
+      {
+        value = 0;
+        parents =
+          Some
+            ([
+            (* dad *)
+            Node { value = 1; parents = None; children = [] };
+            (* mom *)
+            Node { value = 2; parents = Some ([Node { value = 3; parents = None; children = []}]); children = [] };
+            ]);
+        children = [];
+     }
+
   let parent_tree : int tree =
     Node
       {
