@@ -44,8 +44,8 @@ module Tree = struct
       | Node { value; parent; children; _ } ->
           let spaces = String.make ((get_layer_of_tree t) * 2) ' ' in
           match parent with
-           | Some _ -> print_endline (spaces ^ "|__" ^ string_of_int value)
-           | None -> print_endline (spaces ^ string_of_int value)
+           | Some _ -> print_endline (spaces ^ "|__" ^ string_of_int value);
+           | None -> print_endline (spaces ^ string_of_int value);
           List.iter print_int_tree children
 
     let rec print_tree ( t : 'a tree) : unit =
@@ -54,8 +54,8 @@ module Tree = struct
        | Node { value; parent; children; _ } ->
            let spaces = String.make ((get_layer_of_tree t) * 2) ' ' in
            match parent with
-            | Some p -> print_endline (spaces ^ "|__" ^ value)
-            | None -> print_endline (spaces ^ value)
+            | Some _ -> print_endline (spaces ^ "|__" ^ value);
+            | None -> print_endline (spaces ^ value);
            List.iter print_tree children
 
     let tree4 : int tree =
