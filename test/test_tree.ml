@@ -19,6 +19,9 @@ let test_get_layer_of_tree_on_one_parent_tree _ =
 let test_get_layer_of_tree_on_two_parent_tree _ =
   OUnit2.assert_equal 3 (Tree.get_layer_of_tree Tree.two_parent_tree)
 
+let test_get_layer_of_tree_on_multiple_parent_tree _ =
+  OUnit2.assert_equal 3 (Tree.get_layer_of_tree Tree.multiple_parent_tree)
+
 let suite =
   "suite"
   >::: [
@@ -34,6 +37,8 @@ let suite =
          >:: test_get_layer_of_tree_on_one_parent_tree;
          "test_get_layer_of_tree_on_two_parent_tree"
          >:: test_get_layer_of_tree_on_two_parent_tree;
+         "test_get_layer_of_tree_on_multiple_parent_tree"
+         >:: test_get_layer_of_tree_on_multiple_parent_tree;
        ]
 
 let () = run_test_tt_main suite
