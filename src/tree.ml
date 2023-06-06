@@ -67,7 +67,7 @@ module Tree = struct
           value = 1;
           parent = Some (Node { value = 0; parent = None; children = []; layer = 0 });
           children = [];
-          layers = 1;
+          layer = 1;
         }
 
     let two_parent_tree : int tree =
@@ -79,7 +79,7 @@ module Tree = struct
                                 children = [];
                                 layer = 1 });
           children = [];
-          layers = 2;
+          layer = 2;
         }
 
     let parent_tree : int tree =
