@@ -10,16 +10,7 @@ module Tree = struct
           value : 'a;
           parent : 'a tree option;
           children : 'a tree list;
-          layer : int;
         }
-
-    let rec print_int_tree (t : int tree) : unit =
-      match t with
-      | Leaf -> ()
-      | Node { value; children; layer; _ } ->
-          let indentation = String.make (layer * 2) ' ' in
-          print_endline (indentation ^ "Value: " ^ string_of_int value);
-          List.iter print_int_tree children
 
     let get_layer_of_tree (t : 'a tree) : int =
       match t with
@@ -46,16 +37,54 @@ module Tree = struct
           | [] -> 1
           | hd :: res -> 1 + List.fold_left max (get_lowest_layer_of_tree hd) (List.map get_lowest_layer_of_tree res)
 
+    let rec print_int_tree (t : int tree) : unit =
+      match t with
+      | Leaf -> ()
+      | Node { value; parent; children } ->
+          let spaces = String.make ((get_layer_of_tree t) * 2) ' ' in
+          match parent with
+           | Some _ -> print_endline (spaces ^ "|__" ^ string_of_int value);
+           | None -> print_endline (spaces ^ string_of_int value);
+          List.iter print_int_tree children
+
+    let rec print_tree ( t : 'a tree) : unit =
+      match t with
+       | Leaf -> ()
+       | Node { value; parent; children } ->
+           let spaces = String.make ((get_layer_of_tree t) * 2) ' ' in
+           match parent with
+            | Some _ -> print_endline (spaces ^ "|__" ^ value);
+            | None -> print_endline (spaces ^ value);
+           List.iter print_tree children
+
     let tree4 : int tree =
-      Node { value = 4; parent = None; children = []; layer = 0 }
+        Node { value = 4; parent = None; children = []; }
+
+    let string_tree : string tree =
+      Node { value = "father"; parent = None; children =
+                                    [
+                                      Node
+                                        {
+                                          value = "son";
+                                          parent =
+                                            Some
+                                              (Node
+                                                 {
+                                                   value = "father";
+                                                   parent = None;
+                                                   children = [];
+                                                 });
+                                          children = [];
+                                        };
+                                    ];
+         }
 
     let one_parent_tree : int tree =
       Node
         {
           value = 1;
-          parent = Some (Node { value = 0; parent = None; children = []; layer = 0 });
+          parent = Some (Node { value = 0; parent = None; children = []; });
           children = [];
-          layers = 1;
         }
 
     let two_parent_tree : int tree =
@@ -63,11 +92,10 @@ module Tree = struct
         {
           value = 2;
           parent = Some (Node { value = 1;
-                                parent = Some (Node { value = 2; parent = None; children = []; layer = 0});
+                                parent = Some (Node { value = 2; parent = None; children = []; });
                                 children = [];
-                                layer = 1 });
+                                });
           children = [];
-          layers = 2;
         }
 
     let parent_tree : int tree =
@@ -82,12 +110,10 @@ module Tree = struct
                   value = 1;
                   parent =
                     Some
-                      (Node { value = 0; parent = None; children = []; layer = 0 });
+                      (Node { value = 0; parent = None; children = []; });
                   children = [];
-                  layer = 1;
                 };
             ];
-          layer = 0;
         }
 
     let grand_parent_tree : int tree =
@@ -102,7 +128,7 @@ module Tree = struct
                   value = 1;
                   parent =
                     Some
-                      (Node { value = 0; parent = None; children = []; layer = 0 });
+                      (Node { value = 0; parent = None; children = []; });
                   children =
                     [
                       Node
@@ -115,16 +141,12 @@ module Tree = struct
                                    value = 1;
                                    parent = None;
                                    children = [];
-                                   layer = 1;
                                  });
                           children = [];
-                          layer = 2;
                         };
                     ];
-                  layer = 1;
                 };
             ];
-          layer = 0;
         }
 
     let two_children_tree : int tree =
@@ -141,7 +163,7 @@ module Tree = struct
                   value = 1;
                   parent =
                     Some
-                      (Node { value = 0; parent = None; children = []; layer = 0 });
+                      (Node { value = 0; parent = None; children = []; });
                   children =
                     [
                       (* kid 1 *)
@@ -155,7 +177,6 @@ module Tree = struct
                                    value = 1;
                                    parent = None;
                                    children = [];
-                                   layer = 1;
                                  });
                           children =
                             [
@@ -170,13 +191,10 @@ module Tree = struct
                                            value = 2;
                                            parent = None;
                                            children = [];
-                                           layer = 2;
                                          });
                                   children = [];
-                                  layer = 0;
                                 };
                             ];
-                          layer = 0;
                         };
                       (* kid 2 *)
                       Node
@@ -189,7 +207,6 @@ module Tree = struct
                                    value = 1;
                                    parent = None;
                                    children = [];
-                                   layer = 1;
                                  });
                           children =
                             [
@@ -204,7 +221,6 @@ module Tree = struct
                                            value = 2;
                                            parent = None;
                                            children = [];
-                                           layer = 3;
                                          });
                                   children =
                                     [
@@ -219,21 +235,15 @@ module Tree = struct
                                                    value = 3;
                                                    parent = None;
                                                    children = [];
-                                                   layer = 4;
                                                  });
                                           children = [];
-                                          layer = 5;
                                         };
                                     ];
-                                  layer = 4;
                                 };
                             ];
-                          layer = 2;
                         };
                     ];
-                  layer = 1;
                 };
             ];
-          layer = 0;
         }
 end
