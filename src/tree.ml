@@ -8,6 +8,16 @@ module Tree = struct
     | Leaf
     | Node of { value : 'a; parents : 'a tree list option; children : 'a tree list }
 
+  let rec get_layer_of_tree (t : 'a tree) : int =
+    match t with
+    | Leaf -> 0
+    | Node { parents; _ } -> (
+        match parents with
+         | None -> 1
+         | Some p ->
+            1 + List.fold_left max 0 (List.map get_layer_of_tree p))
+
+  (*
   let get_layer_of_tree (t : 'a tree) : int =
     match t with
     | Leaf -> 0
@@ -19,12 +29,13 @@ module Tree = struct
           match !current_node with
           | Some p -> (
               match p with
-              | Some ([Node { parents = p_node; _ }]) ->
-                  current_node := Some p_node
+              | Some ([Node { parents = p_nodes; _ }]) ->
+                  current_node := Some p_nodes
               | _ -> current_node := None)
           | None -> ()
         done;
         !l
+  *)
 
   let rec get_lowest_layer_of_tree (t : 'a tree) : int =
     match t with
@@ -43,11 +54,19 @@ module Tree = struct
     | Leaf -> ()
     | Node { value; parents; children } -> (
         let spaces = String.make (get_layer_of_tree t * 2) ' ' in
-        match parents with
-        | Some _ -> print_endline (spaces ^ "|__" ^ string_of_int value)
-        | None ->
+        (match parents with
+         | None ->
             print_endline (spaces ^ string_of_int value);
-            List.iter print_int_tree children)
+            List.iter print_int_tree children
+         | Some p ->
+            (match p with
+             | [] ->
+                print_endline (spaces ^ string_of_int value);
+                List.iter print_int_tree children
+             | _ :: _ ->
+                print_endline (spaces ^ "|__" ^ string_of_int value);
+                List.iter print_int_tree children))
+        )
 
   let rec print_tree (t : 'a tree) : unit =
     match t with
@@ -55,10 +74,10 @@ module Tree = struct
     | Node { value; parents; children } -> (
         let spaces = String.make (get_layer_of_tree t * 2) ' ' in
         match parents with
-        | Some _ -> print_endline (spaces ^ "|__" ^ value)
+        | Some _ -> print_endline (spaces ^ "|__" ^ value);
         | None ->
             print_endline (spaces ^ value);
-            List.iter print_tree children)
+        List.iter print_tree children)
 
   let tree4 : int tree = Node { value = 4; parents = None; children = [] }
 
