@@ -61,6 +61,27 @@ module Tree = struct
     let tree4 : int tree =
       Node { value = 4; parent = None; children = []; layer = 0 }
 
+    let string_tree : string tree =
+      Node { value = "father"; parent = None; children =
+                                    [
+                                      Node
+                                        {
+                                          value = "son";
+                                          parent =
+                                            Some
+                                              (Node
+                                                 {
+                                                   value = "father";
+                                                   parent = None;
+                                                   children = [];
+                                                   layer = 0;
+                                                 });
+                                          children = [];
+                                          layer = 1;
+                                        };
+                                    ];
+        layer = 0}
+
     let one_parent_tree : int tree =
       Node
         {
