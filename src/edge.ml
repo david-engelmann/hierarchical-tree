@@ -30,6 +30,14 @@ module Edge = struct
     "; weight = " ^ string_of_int t.weight ^
     "; edge_data = [" ^ edge_data_str ^ "] }"
 
+  let to_string_int_int_edge (t : (int, int) edge) : string =
+    let edge_data_str = List.map (fun (x, y) -> "(" ^ string_of_int x ^ ", " ^ string_of_int y ^ ")") t.edge_data in
+    let edge_data_str = String.concat "; " edge_data_str in
+    "{ source_node_id = " ^ string_of_int t.source_node_id ^
+    "; target_node_id = " ^ string_of_int t.target_node_id ^
+    "; weight = " ^ string_of_int t.weight ^
+    "; edge_data = [" ^ edge_data_str ^ "] }"
+
   let edge_int_string : (int, string) edge =
     {
       source_node_id = 0;
