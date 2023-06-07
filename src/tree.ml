@@ -35,9 +35,9 @@ module Tree = struct
      | Node { value; parents; children } ->
          match parents with
           | None ->
-              Node { value; parents = Some [p]; children = children @ [c] }
-          | Some ps ->
-              Node { value; parents = Some (p :: ps); children = children @ [c] }
+              Node { value; parents = parents; children = children @ [c] }
+          | Some _ ->
+              Node { value; parents = parents;  children = children @ [c] }
 
   let print_int_tree (t : int tree) : unit =
     let rec print_int_node (node : int tree) (indentation : int) : unit =
