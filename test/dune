@@ -1,6 +1,6 @@
 (tests
- (names test_tree test_node)
+ (names test_tree test_node test_edge)
  (libraries async core ounit2 hierarchical_tree)
  (preprocess (pps ppx_jane))
- (modules test_tree test_node)
+ (modules test_tree test_node test_edge)
 )
