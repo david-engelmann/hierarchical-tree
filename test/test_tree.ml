@@ -34,6 +34,9 @@ let test_add_child_on_two_trees _ =
 let test_add_parent _ =
   OUnit2.assert_equal 2 (Tree.get_layer_of_tree (Tree.add_parent Tree.tree4 Tree.parent_tree))
 
+let test_add_parent_on_two_parent_tree _ =
+  OUnit2.assert_equal 4 (Tree.get_layer_of_tree (Tree.add_parent Tree.tree4 Tree.two_parent_tree))
+
 let suite =
   "suite"
   >::: [
@@ -59,6 +62,8 @@ let suite =
          >:: test_add_child_on_two_trees;
          "test_add_parent"
          >:: test_add_parent;
+         "test_add_parent_on_two_parent_tree"
+         >:: test_add_parent_on_two_parent_tree;
        ]
 
 let () = run_test_tt_main suite
