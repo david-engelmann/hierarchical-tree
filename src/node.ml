@@ -11,5 +11,5 @@ module Node = struct
 
     let node_string_int : (string, int) node = { node_id = 2; node_name = "lily_my_dear"; node_data = [("gambled in texas", 0); ("sure use me", 5)] }
 
-    let node_int_int : (int, int) node = { node_id = 2; node_name = "moving_too_fast"; node_data = [(5, 18); (51, 8)] }
+    let node_int_int : (int, int) node = { node_id = 3; node_name = "moving_too_fast"; node_data = [(5, 18); (51, 8)] }
 end
