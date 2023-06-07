@@ -39,6 +39,16 @@ module Tree = struct
           | Some _ ->
               Node { value; parents = parents;  children = children @ [c] }
 
+  let add_parent (c : 'a tree) (p : 'a tree) : 'a tree =
+    match c with
+     | Leaf -> failwith "You are attempting to add a parent to leaf node."
+     | Node { value; parents; children } ->
+        match parents with
+         | None ->
+            Node { value; parents = Some [p]; children = children }
+         | Some ps ->
+            Node { value; parents = Some (p :: ps); children = children}
+
   let print_int_tree (t : int tree) : unit =
     let rec print_int_node (node : int tree) (indentation : int) : unit =
       let spaces = String.make (indentation * 2) ' ' in
