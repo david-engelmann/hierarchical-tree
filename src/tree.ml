@@ -29,6 +29,16 @@ module Tree = struct
                 (get_lowest_layer_of_tree hd)
                 (List.map get_lowest_layer_of_tree res))
 
+  let add_child (p : 'a tree) (c : 'a tree) : 'a tree =
+    match p with
+     | Leaf -> failwith "You are attempting to add a child to a leaf node."
+     | Node { value; parents; children } ->
+         match parents with
+          | None ->
+              Node { value; parents = parents; children = children @ [c] }
+          | Some _ ->
+              Node { value; parents = parents;  children = children @ [c] }
+
   let print_int_tree (t : int tree) : unit =
     let rec print_int_node (node : int tree) (indentation : int) : unit =
       let spaces = String.make (indentation * 2) ' ' in
