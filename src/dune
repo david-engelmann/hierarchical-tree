@@ -2,5 +2,5 @@
  (name hierarchical_tree)
  (libraries async core)
  (preprocess (pps ppx_jane))
- (modules Tree Node)
+ (modules Tree Node Edge)
 )
