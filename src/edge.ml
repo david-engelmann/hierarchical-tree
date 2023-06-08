@@ -42,22 +42,19 @@ module Edge = struct
     let open Printf in
     sprintf "{ source_node_id = %d; target_node_id = %d; weight = %d; edge_data = [] }"
       t.source_node_id t.target_node_id t.weight
-
+  (*
   let to_string (t : ('a, 'b) edge) : string =
     let open Printf in
     match t.edge_data with
     | [] -> to_string_no_edge_data t
     | (x, y) :: _ ->
-      match x, y with
-      | (x : int), (y : string) ->
-        to_string_int_string_edge t
-      | (x : string), (y : string) ->
-        to_string_string_string_edge t
-      | (x : string), (y : int) ->
-        to_string_string_int_edge t
-      | (x : int), (y : int) ->
-        to_string_int_int_edge t
-      | _ -> failwith "Unsupported edge data types"
+      (match x, y with
+      | (x : int), (y : string) -> to_string_int_string_edge edge
+      | (x : string), (y : string) -> to_string_string_string_edge edge
+      | (x : string), (y : int) -> to_string_string_int_edge edge
+      | (x : int), (y : int) -> to_string_int_int_edge edge
+      | _ -> failwith "Unsupported edge data types")
+  *)
 
   let edge_int_string : (int, string) edge =
     {
