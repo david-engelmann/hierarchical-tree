@@ -6,6 +6,56 @@ module Edge = struct
     edge_data : ('a * 'b) list;
   }
 
+  let to_string_int_string_edge (t : (int, string) edge) : string =
+    let edge_data_str = List.map (fun (x, y) -> "(" ^ string_of_int x ^ ", " ^ "\"" ^ y ^ "\"" ^ ")") t.edge_data in
+    let edge_data_str = String.concat "; " edge_data_str in
+    "{ source_node_id = " ^ string_of_int t.source_node_id ^
+    "; target_node_id = " ^ string_of_int t.target_node_id ^
+    "; weight = " ^ string_of_int t.weight ^
+    "; edge_data = [" ^ edge_data_str ^ "] }"
+
+  let to_string_string_string_edge (t : (string, string) edge) : string =
+    let edge_data_str = List.map (fun (x, y) -> "(" ^ "\"" ^ x ^ "\"" ^ ", " ^ "\"" ^ y ^ "\"" ^ ")") t.edge_data in
+    let edge_data_str = String.concat "; " edge_data_str in
+    "{ source_node_id = " ^ string_of_int t.source_node_id ^
+    "; target_node_id = " ^ string_of_int t.target_node_id ^
+    "; weight = " ^ string_of_int t.weight ^
+    "; edge_data = [" ^ edge_data_str ^ "] }"
+
+  let to_string_string_int_edge (t : (string, int) edge) : string =
+    let edge_data_str = List.map (fun (x, y) -> "(" ^ "\"" ^ x ^ "\"" ^ ", " ^ string_of_int y ^ ")") t.edge_data in
+    let edge_data_str = String.concat "; " edge_data_str in
+    "{ source_node_id = " ^ string_of_int t.source_node_id ^
+    "; target_node_id = " ^ string_of_int t.target_node_id ^
+    "; weight = " ^ string_of_int t.weight ^
+    "; edge_data = [" ^ edge_data_str ^ "] }"
+
+  let to_string_int_int_edge (t : (int, int) edge) : string =
+    let edge_data_str = List.map (fun (x, y) -> "(" ^ string_of_int x ^ ", " ^ string_of_int y ^ ")") t.edge_data in
+    let edge_data_str = String.concat "; " edge_data_str in
+    "{ source_node_id = " ^ string_of_int t.source_node_id ^
+    "; target_node_id = " ^ string_of_int t.target_node_id ^
+    "; weight = " ^ string_of_int t.weight ^
+    "; edge_data = [" ^ edge_data_str ^ "] }"
+
+  let to_string_no_edge_data (t : ('a, 'b) edge) : string =
+    let open Printf in
+    sprintf "{ source_node_id = %d; target_node_id = %d; weight = %d; edge_data = [] }"
+      t.source_node_id t.target_node_id t.weight
+  (*
+  let to_string (t : ('a, 'b) edge) : string =
+    let open Printf in
+    match t.edge_data with
+    | [] -> to_string_no_edge_data t
+    | (x, y) :: _ ->
+      (match x, y with
+      | (x : int), (y : string) -> to_string_int_string_edge edge
+      | (x : string), (y : string) -> to_string_string_string_edge edge
+      | (x : string), (y : int) -> to_string_string_int_edge edge
+      | (x : int), (y : int) -> to_string_int_int_edge edge
+      | _ -> failwith "Unsupported edge data types")
+  *)
+
   let edge_int_string : (int, string) edge =
     {
       source_node_id = 0;
