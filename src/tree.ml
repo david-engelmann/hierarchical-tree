@@ -2,7 +2,6 @@
 open Core
 open Async
 *)
-
 module Tree = struct
   type 'a tree =
     | Leaf
