@@ -2,7 +2,6 @@
 open Core
 open Async
 *)
-
 module Tree = struct
   type 'a tree =
     | Leaf
@@ -92,6 +91,8 @@ module Tree = struct
     in
     let indentation = get_layer_of_tree t in
     print_node t indentation
+
+  let leaf4 : 'a tree = Leaf
 
   let tree4 : int tree = Node { value = 4; parents = None; children = [] }
 
