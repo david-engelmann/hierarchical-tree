@@ -2,7 +2,12 @@ module Node : sig
   (** Signatures for the Node Module *)
 
   (** [('a, 'b) node] is the representation type for node *)
-  type ('a, 'b) node
+  type ('a, 'b) node =
+      { node_id : int;
+        node_name : string;
+        node_data : ('a * 'b) list;
+      }
+
 
   val to_string_int_string_node : (int, string) node -> string
   val to_string_string_string_node : (string, string) node -> string
