@@ -20,4 +20,21 @@ module type Tree = sig
 
   (** [print_tree 'a tree] prints a string representation of 'a tree *)
   val print_tree : 'a tree -> unit
+
+  (** test cases to remove after working *)
+  val tree4 : int tree
+
+  val string_tree : string tree
+
+  val one_parent_tree : int tree
+
+  val two_parent_tree : int tree
+
+  val multiple_parent_tree : int tree
+
+  val parent_tree : int tree
+
+  val grand_parent_tree : int tree
+
+  val two_children_tree : int tree
 end
