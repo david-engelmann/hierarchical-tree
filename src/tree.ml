@@ -92,6 +92,8 @@ module Tree = struct
     let indentation = get_layer_of_tree t in
     print_node t indentation
 
+  let leaf4 : 'a tree = Leaf
+
   let tree4 : int tree = Node { value = 4; parents = None; children = [] }
 
   let string_tree : string tree =
