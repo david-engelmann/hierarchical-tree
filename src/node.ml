@@ -33,7 +33,6 @@ module Node = struct
       "; node_name = " ^ n.node_name ^
       "; node_data = [" ^ node_data_str ^ "] }"
 
-
     let node_int_string : (int, string) node = { node_id = 0; node_name = "july_jackson"; node_data = [(0, "wife"); (1, "kids")] }
 
     let node_string_string : (string, string) node = { node_id = 1; node_name = "tom_turkey"; node_data = [("low", "down"); ("your", "friend")] }
