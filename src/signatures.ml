@@ -1,4 +1,7 @@
 module type Tree = sig
+  (** ['a tree] is the representation type for tree *)
+  type 'a tree
+
   (** [get_layer_of_tree 'a tree] gets the number of generations above the
    * current node, including the current nodes generation *)
   val get_layer_of_tree : 'a tree -> int
